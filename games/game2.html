@@ -81,23 +81,7 @@
         jmlBenar = 0,
         waktu = 0;
 
-      const List = [
-        ["lowongan", "lowomgan"],
-        ["TSHPS", "TSHPS"],
-        [1234, 1234],
-        [7353774, 7383774],
-        ["locasalen", "locasalen"],
-        [110011, 111001],
-        ["Probolinggo", "Probolingo"],
-        [98758, 98758],
-        ["INTLX", "INTLE"],
-        ["THTSTQ", "THTSTQ"],
-        ["Yandi Suharto", "Yandi Suharto"],
-        [69877, 69787],
-        [97054, 97054],
-        [4295454, 4295454],
-        ["C.V.Flamboyan", "CV.Flamboyan"],
-      ];
+      let List = Array();
 
       function clicks(data = null) {
         if (!play) return start();
@@ -110,7 +94,27 @@
         jmlSalah = 0;
         jmlBenar = 0;
         waktu = 0;
+        List = [
+          ["lowongan", "lowomgan"],
+          ["TSHPS", "TSHPS"],
+          [1234, 1234],
+          [7353774, 7383774],
+          ["locasalen", "locasalen"],
+          [110011, 111001],
+          ["Probolinggo", "Probolingo"],
+          [98758, 98758],
+          ["INTLX", "INTLE"],
+          ["THTSTQ", "THTSTQ"],
+          ["Yandi Suharto", "Yandi Suharto"],
+          [69877, 69787],
+          [97054, 97054],
+          [4295454, 4295454],
+          ["C.V.Flamboyan", "CV.Flamboyan"],
+        ];
         reset();
+        displaySalah.innerText = 0;
+        displayBenar.innerText = 0;
+        displayWaktu.innerText = 0;
         intWaktu = setInterval(() => {
           waktu++;
           displayWaktu.innerText = waktu;
@@ -118,10 +122,14 @@
         console.log("play");
       }
       function stop() {
+        play = false;
         clearInterval(intWaktu);
+        pertama.innerText = "Klik salah satu untuk main lagi.";
+        kedua.innerText = null;
         Swal.fire({
           icon: "success",
           titleText: `Selesai ${waktu}s`,
+          showConfirmButton: false,
           html: `
           <div class="d-flex gap-2 justify-content-center">
             <div class="alert alert-success py-2">${jmlBenar} Benar</div>
