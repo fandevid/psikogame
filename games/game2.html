@@ -50,10 +50,10 @@
         <div class="card">
           <div class="content">
             <div class="card-header d-flex gap-2 py-3">
-              <div class="nav-item text-success">Benar: <strong id="displayBenar">0</strong></div>
+              <div class="nav-item text-success">Benar: <span id="displayBenar">0</span></div>
               |
-              <div class="nav-item text-danger">Salah: <strong id="displaySalah">0</strong></div>
-              <div class="ms-auto text-primary">Waktu: <strong id="displayWaktu">0</strong>s</div>
+              <div class="nav-item text-danger">Salah: <span id="displaySalah">0</span></div>
+              <div class="ms-auto text-primary">Waktu: <span id="displayWaktu">0</span>s</div>
             </div>
             <div class="card-body">
               <div class="text-center mb-3 py-5 px-3"><strong id="pertama">Klik salah satu untuk memulai!</strong> --- <strong id="kedua"></strong></div>
@@ -73,11 +73,13 @@
       const pertama = document.getElementById("pertama"),
         kedua = document.getElementById("kedua"),
         displayBenar = document.getElementById("displayBenar"),
-        displaySalah = document.getElementById("displaySalah");
+        displaySalah = document.getElementById("displaySalah"),
+        displayWaktu = document.getElementById("displayWaktu");
 
       let play = false,
         jmlSalah = 0,
-        jmlBenar = 0;
+        jmlBenar = 0,
+        waktu = 0;
 
       const List = [
         ["lowongan", "lowomgan"],
@@ -107,13 +109,19 @@
         play = true;
         jmlSalah = 0;
         jmlBenar = 0;
+        waktu = 0;
         reset();
+        intWaktu = setInterval(() => {
+          waktu++;
+          displayWaktu.innerText = waktu;
+        }, 1000);
         console.log("play");
       }
       function stop() {
+        clearInterval(intWaktu);
         Swal.fire({
           icon: "success",
-          titleText: `${jmlBenar} Benar 23s`,
+          titleText: `Selesai ${waktu}s`,
           html: `
           <div class="d-flex gap-2 justify-content-center">
             <div class="alert alert-success py-2">${jmlBenar} Benar</div>
@@ -134,7 +142,7 @@
       }
       function reset() {
         if (List.length <= 0) return stop();
-        const l = List.shift();
+        const l = List.splice(Math.floor(Math.random() * List.length), 1)[0];
         pertama.innerText = l[0];
         kedua.innerText = l[1];
       }
